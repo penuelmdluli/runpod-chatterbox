@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive PYTHONUNBUFFERED=1 HF_HOME=/models
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg git libsndfile1 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir chatterbox-tts soundfile "runpod==1.7.7" requests
+RUN pip install --no-cache-dir chatterbox-tts soundfile "runpod==1.7.7" requests && \
+    pip install --no-cache-dir "transformers==4.46.3"
 
 # Bake the model weights at build.
 RUN python -c "from chatterbox.tts import ChatterboxTTS; ChatterboxTTS.from_pretrained(device='cpu'); print('chatterbox baked OK')"
